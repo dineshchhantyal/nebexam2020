@@ -31,9 +31,9 @@ function TotalPieChart() {
       doc.forEach((e) => {
         const q = e.data().thought;
         if (q === "Yes") {
-          tyes.push(q);
+          tyes.push(e);
         } else {
-          tno.push(q);
+          tno.push(e);
         }
         setTotalYesSubmission(tyes.length);
         setTotalNoSubmission(tno.length);
@@ -48,10 +48,11 @@ function TotalPieChart() {
       setParentSubmission(doc.Uf.docChanges.length);
       doc.forEach((e) => {
         const q = e.data().thought;
-        if (q === "Yes") {
-          tyes.push(q);
+        console.log(q);
+        if (q == "Yes") {
+          tyes.push(e);
         } else {
-          tno.push(q);
+          tno.push(e);
         }
         setParentYesSubmission(pyes.length);
         setParentNoSubmission(pno.length);
@@ -67,9 +68,9 @@ function TotalPieChart() {
       doc.forEach((e) => {
         const q = e.data().thought;
         if (q === "Yes") {
-          tyes.push(q);
+          tyes.push(e);
         } else {
-          tno.push(q);
+          tno.push(e);
         }
         setStudentYesSubmission(syes.length);
         setStudentNoSubmission(sno.length);
@@ -93,8 +94,8 @@ function TotalPieChart() {
         <div className="totalSubmission box">
           Total Guardian Submission
           <p className="num"> {totalParentSubmission} </p>
-          Guardian with Yes = totalYesParentSubmission
-          Guardian with No = totalNoParentSubmission
+          Guardian with Yes = {totalYesParentSubmission}
+          Guardian with No = {totalNoParentSubmission}
          
         </div>
       </div>
