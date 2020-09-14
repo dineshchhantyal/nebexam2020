@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useHistory } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -8,10 +8,11 @@ import FormLabel from '@material-ui/core/FormLabel';
 import { Button, Checkbox, FormGroup } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import './Form.css';
+import { useHistory } from "react-router-dom";
 import {db} from './firebase';
 
 function Form() {
-    history = useHistory();
+     let history = useHistory();
     const [fullname, setFullname] = useState("");
     const handleFullname = (e) => {
         setFullname(e.target.value);
@@ -19,27 +20,27 @@ function Form() {
 const currencies = [
     {
       value: 'province 1',
-      label: 'province 1',
+      label: 'Province 1',
     },
     {
         value: 'province 2',
-        label: 'province 2',
+        label: 'Province 2',
       },
       {
         value: 'province 3',
-        label: 'province 3',
+        label: 'Province 3',
       },
       {
         value: 'province 4',
-        label: 'province 4',
+        label: 'Province 4',
       },
       {
         value: 'province 5',
-        label: 'province 5',
+        label: 'Province 5',
       },
       {
         value: 'province 6',
-        label: 'province 6',
+        label: 'Province 6',
       },
    
   ];
@@ -73,17 +74,20 @@ const currencies = [
   };
   const handleSubmit = e => {
     e.preventDefault();
-    const a = db.collection('Users');
-    console.log(a);
-     storeDB('Users');
-   if (responsibility[1] === true) {
-    storeDB('Student');
-   };
+    if (fullname == null){
+  //    storeDB('Users');
+  //  if (responsibility[0] === true) {
+  //   storeDB('Student');
+  //  };
    
-   if (responsibility[2] === true) {
-    storeDB('Parent');
-   };
-
+  //  if (responsibility[1] === true) {
+  //   storeDB('Parent');
+  //  };
+  //  history.replace('/info')
+    }
+    else {
+      alert('Check all Field')
+    }
   };
 
   const storeDB = (group) => {
@@ -98,7 +102,7 @@ const currencies = [
   return (
       <div className="form">
     <form className="form__table" method="post" >
-    <TextField className="fullname"  value={fullname} onChange={handleFullname} id="outlined-basic" label="Full Name" variant="outlined" />
+    <TextField className="fullname"  value={fullname} onChange={handleFullname} id="outlined-basic" label="Full Name" variant="outlined" required={true} />
     <TextField
     className="province"
           select
@@ -118,19 +122,19 @@ const currencies = [
           ))}
         </TextField>
         <FormControl component="fieldset" className="responsibility" >
-        <FormLabel component="legend">Responsibility</FormLabel>
-        <FormGroup>
+        <FormLabel component="legend">You are:</FormLabel>
+        <FormGroup required={true}>
           <FormControlLabel
             control={<Checkbox checked={Student} onChange={handleChange} name="Student" />}
             label="Student"
           />
           <FormControlLabel
             control={<Checkbox checked={Guardent} onChange={handleChange} name="Guardent" />}
-            label="Gardient"
+            label="Guardian"
           />
         </FormGroup>
         </FormControl>
-        <FormControl component="fieldset" className="thought">
+        <FormControl component="fieldset" className="thought" required={true}>
       <FormLabel component="legend">Do you think taking exam in this condition is right?</FormLabel>
       <RadioGroup aria-label="gender" name="gender1" value={thought} onChange={handleThought}>
         <FormControlLabel value="Yes" control={<Radio />} label="Yes" />

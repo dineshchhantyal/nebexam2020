@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Form from './Form';
 import './TotalPieChart'
 import TotalPieChart from './TotalPieChart';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+
 function App() {
   return (
+    <Router>
     <div className="app">
+      <Switch>
+     
+      <Route path="/info">
+      <TotalPieChart/>
+      </Route>
+      <Route path="/">
       <Form />
-      <TotalPieChart />
+      </Route>
+      </Switch>
     </div>
+    </Router>
   );
 }
 

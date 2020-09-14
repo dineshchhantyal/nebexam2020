@@ -1,0 +1,21 @@
+.body {
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+.boxes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.box {
+    text-align: center;
+    min-width: 250px;
+    min-height: 250px;
+    background-color: burlywood;
+    margin: 12px;
+}
+
+input {
+    width: 60%;
+}
