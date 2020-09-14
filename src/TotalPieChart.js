@@ -1,5 +1,5 @@
 import { green } from "@material-ui/core/colors";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useStateValue } from "./StateProvider";
 import { db } from "./firebase";
@@ -17,27 +17,25 @@ function TotalPieChart() {
   const [totalNoParentSubmission, setParentNoSubmission] = useState(0);
   const [totalYesStudentSubmission, setStudentYesSubmission] = useState(0);
   const [totalNoStudentSubmission, setStudentNoSubmission] = useState(0);
-  const tyes = [];
-  const tno = [];
-  const pyes = [];
-  const pno = [];
-  const syes = [];
-  const sno = [];
 
-  db.collection("Users")
+useEffect(() => {
+    db.collection("Users")
     .get()
     .then((doc) => {
       setTotalSubmission(doc.Uf.docChanges.length);
+      let y = 0;
+      let n = 0;
       doc.forEach((e) => {
         const q = e.data().thought;
-        if (q === "Yes") {
-          tyes.push(e);
+        if (q == "Yes") {
+          y++
         } else {
-          tno.push(e);
+          n++
         }
-        setTotalYesSubmission(tyes.length);
-        setTotalNoSubmission(tno.length);
       });
+      
+      setTotalYesSubmission(y);
+      setTotalNoSubmission(n);
     })
     .catch((err) => {
       console.log(err);
@@ -46,17 +44,18 @@ function TotalPieChart() {
     .get()
     .then((doc) => {
       setParentSubmission(doc.Uf.docChanges.length);
+      let y = 0;
+      let n = 0;
       doc.forEach((e) => {
         const q = e.data().thought;
-        console.log(q);
         if (q == "Yes") {
-          tyes.push(e);
+          y++
         } else {
-          tno.push(e);
+          n++
         }
-        setParentYesSubmission(pyes.length);
-        setParentNoSubmission(pno.length);
       });
+      setParentYesSubmission(y);
+      setParentNoSubmission(n);
     })
     .catch((err) => {
       console.log(err);
@@ -65,20 +64,24 @@ function TotalPieChart() {
     .get()
     .then((doc) => {
       setStudentSubmission(doc.Uf.docChanges.length);
+      let y = 0;
+      let n = 0;
       doc.forEach((e) => {
         const q = e.data().thought;
-        if (q === "Yes") {
-          tyes.push(e);
+        if (q == "Yes") {
+          y++
         } else {
-          tno.push(e);
+          n++
         }
-        setStudentYesSubmission(syes.length);
-        setStudentNoSubmission(sno.length);
       });
+      setStudentYesSubmission(y);
+      setStudentNoSubmission(n);
     })
     .catch((err) => {
       console.log(err);
     });
+}, [])
+ 
   return (
     <div className="body">
       {/* { "" : "<p> Thanks For Your Submission </p>"} */}
@@ -86,21 +89,25 @@ function TotalPieChart() {
         <div className="totalSubmission box">
           Total Submission
           <p className="num"> {totalSubmission} </p>
+        Total with Yes = {totalYesSubmission} <br />
+          Total with No = {totalNoSubmission}
         </div>
         <div className="totalSubmission box">
           Total Student Submission
           <p className="num"> {totalStudentSubmission} </p>
+          Student with Yes = {totalYesStudentSubmission} <br/>
+          Student with No = {totalNoStudentSubmission}
         </div>
         <div className="totalSubmission box">
           Total Guardian Submission
           <p className="num"> {totalParentSubmission} </p>
-          Guardian with Yes = {totalYesParentSubmission}
+          Guardian with Yes = {totalYesParentSubmission} <br/>
           Guardian with No = {totalNoParentSubmission}
          
         </div>
       </div>
-      <h2> Data Analysis </h2>
-      <h4 style={{ color: green }}> Under development. </h4>
+      <h2> Data Aanalysis </h2>
+      <h4 style={{ color: green }}> This page is in under development phase </h4>
       <Pie />
     </div>
   );
