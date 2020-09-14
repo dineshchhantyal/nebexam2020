@@ -1,14 +1,23 @@
-import React from 'react';
-import './App.css';
-import Form from './Form';
-import './TotalPieChart'
-import TotalPieChart from './TotalPieChart';
+import React from "react";
+import "./App.css";
+import Form from "./Form";
+import "./TotalPieChart";
+import TotalPieChart from "./TotalPieChart";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 function App() {
   return (
-    <div className="app">
-      <Form />
-      <TotalPieChart />
-    </div>
+    <Router>
+      <div className="app">
+        <Switch>
+          <Route path="/details">
+            <TotalPieChart />
+          </Route>
+          <Route path="/">
+            <Form />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
