@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Form from './Form';
 import './TotalPieChart'
+import TotalPieChart from './TotalPieChart';
 function App() {
   return (
     <div className="app">

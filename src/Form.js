@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useHistory } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -11,41 +11,42 @@ import './Form.css';
 import {db} from './firebase';
 
 function Form() {
+    history = useHistory();
     const [fullname, setFullname] = useState("");
     const handleFullname = (e) => {
         setFullname(e.target.value);
     };
 const currencies = [
     {
-      value: 'Provience 1',
-      label: 'Provience 1',
+      value: 'province 1',
+      label: 'province 1',
     },
     {
-        value: 'Provience 2',
-        label: 'Provience 2',
+        value: 'province 2',
+        label: 'province 2',
       },
       {
-        value: 'Provience 3',
-        label: 'Provience 3',
+        value: 'province 3',
+        label: 'province 3',
       },
       {
-        value: 'Provience 4',
-        label: 'Provience 4',
+        value: 'province 4',
+        label: 'province 4',
       },
       {
-        value: 'Provience 5',
-        label: 'Provience 5',
+        value: 'province 5',
+        label: 'province 5',
       },
       {
-        value: 'Provience 6',
-        label: 'Provience 6',
+        value: 'province 6',
+        label: 'province 6',
       },
    
   ];
-  const [provience, setProvience] = useState('Procience 1');
+  const [province, setprovince] = useState('Procience 1');
 
-  const handleProvience = (event) => {
-    setProvience(event.target.value);
+  const handleprovince = (event) => {
+    setprovince(event.target.value);
   };
   const [thought, setThought] = useState('female');
 
@@ -72,20 +73,23 @@ const currencies = [
   };
   const handleSubmit = e => {
     e.preventDefault();
-   storeDB('Users');
-   if (responsibility[1]) {
+    const a = db.collection('Users');
+    console.log(a);
+     storeDB('Users');
+   if (responsibility[1] === true) {
     storeDB('Student');
-   }
+   };
    
-   if (responsibility[2]) {
-    storeDB('Guardent');
-   }
+   if (responsibility[2] === true) {
+    storeDB('Parent');
+   };
+
   };
 
   const storeDB = (group) => {
-      db.collection(group).set ({
+      db.collection(group).doc(fullname).set({
           fullname,
-          provience,
+          province,
           responsibility,
           thought,
       });
@@ -96,15 +100,15 @@ const currencies = [
     <form className="form__table" method="post" >
     <TextField className="fullname"  value={fullname} onChange={handleFullname} id="outlined-basic" label="Full Name" variant="outlined" />
     <TextField
-    className="provience"
+    className="province"
           select
-          label="Select Your Provision"
-          value={provience}
-          onChange={handleProvience}
+          label="Select Your Province"
+          value={province}
+          onChange={handleprovince}
           SelectProps={{
             native: true,
           }}
-          helperText="Please select your provience"
+          helperText="Please select your province"
           variant="outlined"
         >
           {currencies.map((option) => (
