@@ -10,10 +10,13 @@
 }
 .box {
     text-align: center;
-    min-width: 250px;
-    min-height: 250px;
-    background-color: burlywood;
-    margin: 12px;
+    min-width: 150px;
+    min-height: 150px;
+    background-color: rgb(149, 195, 255);
+     margin: 12px;
+     color: rgb(22, 22, 22);
+     display: grid;
+     
 }
 
 input {
