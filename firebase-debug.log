@@ -1,0 +1,17 @@
+[debug] [2020-10-11T16:33:23.178Z] ----------------------------------------------------------------------
+[debug] [2020-10-11T16:33:23.187Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\myagd\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2020-10-11T16:33:23.188Z] CLI Version:   8.11.2
+[debug] [2020-10-11T16:33:23.188Z] Platform:      win32
+[debug] [2020-10-11T16:33:23.188Z] Node Version:  v12.18.3
+[debug] [2020-10-11T16:33:23.327Z] Time:          Sun Oct 11 2020 22:18:23 GMT+0545 (Nepal Time)
+[debug] [2020-10-11T16:33:23.328Z] ----------------------------------------------------------------------
+[debug] [2020-10-11T16:33:23.329Z] 
+[debug] [2020-10-11T16:33:23.519Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-10-11T16:33:23.523Z] > authorizing via signed-in user
+[debug] [2020-10-11T16:33:23.525Z] [iam] checking project neb-exam-poll for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-10-11T16:33:23.548Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-10-11T16:33:23.549Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-10-11T16:33:24.362Z] <<< HTTP RESPONSE 200 {"date":"Sun, 11 Oct 2020 16:33:24 GMT","expires":"Mon, 01 Jan 1990 00:00:00 GMT","pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-10-11T16:33:24.581Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/neb-exam-poll:testIamPermissions  
+ {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}

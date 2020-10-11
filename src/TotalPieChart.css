@@ -55,17 +55,22 @@ footer {
   text-align: center;
   color: tomato;
 }
-.backtotop {
+button.backtotop {
   width: 200px;
-  height: 30px;
+  height: 40px;
   border: none;
-  margin-top: 19px;
+  outline: none;
   cursor: pointer;
-  color: rgb(91, 80, 238);
   outline: none;
   font-family: monospace;
 }
-.backtotop:hover {
-  color: blue;
-  background: white;
+.backtop {
+  margin-top: 26px;
+}
+
+.backtotop .MuiButton-label {
+  background-color: white;
+}
+a {
+  text-decoration: none;
 }

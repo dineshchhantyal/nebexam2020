@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import Button from "@material-ui/core/Button";
 import { db } from "./firebase";
 import LineChart from "./Line";
 import Message from "./Message";
@@ -16,7 +16,7 @@ function TotalPieChart() {
   const [totalNoParentSubmission, setParentNoSubmission] = useState(0);
   const [totalYesStudentSubmission, setStudentYesSubmission] = useState(0);
   const [totalNoStudentSubmission, setStudentNoSubmission] = useState(0);
-const [textArea, setTextArea] = useState([])
+  const [textArea, setTextArea] = useState([]);
   useEffect(() => {
     db.collection("Users").onSnapshot((doc) => {
       setTotalSubmission(doc.docs.length);
@@ -32,8 +32,7 @@ const [textArea, setTextArea] = useState([])
       doc.forEach((e) => {
         const { textarea, fullname } = e.data();
         if (textarea) {
-          setTextArea(textArea => [...textArea, { fullname, textarea }]);
-          
+          setTextArea((textArea) => [...textArea, { fullname, textarea }]);
         }
 
         const q = e.data().thought; //Yes no
@@ -104,7 +103,7 @@ const [textArea, setTextArea] = useState([])
       </div>
       <Message textArea={textArea} />
 
-      <LineChart />
+      {/* <LineChart /> */}
 
       <footer>
         <div className="message">
@@ -121,8 +120,8 @@ const [textArea, setTextArea] = useState([])
             any act against the government of Nepal.
           </p>
         </div>
-        <a href="#top">
-          <button className="backtotop">Back To Top</button>
+        <a href="#top" className="backtop">
+          <Button className="backtotop">Back To Top</Button>
         </a>
       </footer>
     </div>

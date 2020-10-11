@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 
 function Form() {
   let history = useHistory();
-  const [textarea, setTextarea] = useState("")
+  const [textarea, setTextarea] = useState("");
   const [fullname, setFullname] = useState("");
   const handleFullname = (e) => {
     setFullname(e.target.value);
@@ -65,7 +65,6 @@ function Form() {
   });
   const [responsibility, setResponsibility] = useState([]);
 
-
   useEffect(() => {
     if (state.Student === true && state.Guardent === true) {
       setResponsibility([Student, Guardent]);
@@ -76,15 +75,14 @@ function Form() {
     }
   }, [state]);
 
-  
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (fullname !== "") {
-      storeDB("test");
-      
+      storeDB("Users");
+
       history.replace("/info");
     } else {
       alert("Full name missing");
@@ -101,9 +99,9 @@ function Form() {
     });
   };
   const { Student, Guardent } = state;
-  const handleTextarea =  (e) => {
-    setTextarea(e.target.value)
-  } 
+  const handleTextarea = (e) => {
+    setTextarea(e.target.value);
+  };
   return (
     <div className="form">
       <form className="form__table" method="post">
@@ -170,7 +168,14 @@ function Form() {
             <FormControlLabel value="No" control={<Radio />} label="No" />
           </RadioGroup>
         </FormControl>
-        <textarea cols="30" rows="10" value={textarea} onChange={handleTextarea} placeholder="Any Sugggestion or Opinion Here(Optional)" style={{border:'none', width:"300px"}}></textarea>
+        <textarea
+          cols="30"
+          rows="10"
+          value={textarea}
+          onChange={handleTextarea}
+          placeholder="Any Sugggestion or Opinion Here(Optional)"
+          style={{ border: "none", width: "300px" }}
+        ></textarea>
         <Button
           type="submit"
           className="submit-btn"
@@ -182,10 +187,12 @@ function Form() {
           Submit <SendIcon />
         </Button>
       </form>
-      
+
       <Link to="/info">
         {" "}
-        <i>Skip</i>
+        <b>
+          <i>Skip</i>
+        </b>
       </Link>
     </div>
   );
