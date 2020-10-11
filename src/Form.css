@@ -1,18 +1,31 @@
-.form {
-display: grid;
-width: 100%;
-height: 100vh;
-place-items: center;
-}
+@media (min-width: 768px) {
+  .form {
+    display: grid;
+    width: 100%;
+    place-items: center;
+  }
 
-.form__table {
-    height: 90%;
+  .form__table {
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-}
+    align-items: center;
+  }
 
-.MuiFormControl-root {
-    margin-bottom: 12px;
-}
+  .title {
+    font-size: 17px;
+    text-align: center;
+    color: blue;
+  }
 
+  .fullname,
+  .province,
+  .submit-btn {
+    width: 300px;
+  }
+  .responsibility,
+  .thought {
+    width: 75%;
+  }
+}

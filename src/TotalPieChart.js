@@ -1,11 +1,10 @@
-import { green } from "@material-ui/core/colors";
 import React, { useEffect, useState } from "react";
 
-import { useStateValue } from "./StateProvider";
 import { db } from "./firebase";
+import LineChart from "./Line";
+import Message from "./Message";
 import Pie from "./Pie";
 import "./TotalPieChart.css";
-import { Slider, Typography } from "@material-ui/core";
 
 function TotalPieChart() {
   const [totalSubmission, setTotalSubmission] = useState(0);
@@ -17,98 +16,115 @@ function TotalPieChart() {
   const [totalNoParentSubmission, setParentNoSubmission] = useState(0);
   const [totalYesStudentSubmission, setStudentYesSubmission] = useState(0);
   const [totalNoStudentSubmission, setStudentNoSubmission] = useState(0);
+const [textArea, setTextArea] = useState([])
+  useEffect(() => {
+    db.collection("Users").onSnapshot((doc) => {
+      setTotalSubmission(doc.docs.length);
 
-useEffect(() => {
-    db.collection("Users")
-    .get()
-    .then((doc) => {
-      setTotalSubmission(doc.Uf.docChanges.length);
       let y = 0;
       let n = 0;
+      let sy = 0;
+      let sn = 0;
+      let st = 0;
+      let py = 0;
+      let pn = 0;
+      let pt = 0;
       doc.forEach((e) => {
-        const q = e.data().thought;
-        if (q == "Yes") {
-          y++
+        const { textarea, fullname } = e.data();
+        if (textarea) {
+          setTextArea(textArea => [...textArea, { fullname, textarea }]);
+          
+        }
+
+        const q = e.data().thought; //Yes no
+
+        if (q === "Yes") {
+          y++;
         } else {
-          n++
+          n++;
+        }
+        setTotalYesSubmission(y);
+        setTotalNoSubmission(n);
+        if (e.data().responsibility[1]) {
+          pt++;
+          if (q === "Yes") {
+            py++;
+          } else {
+            pn++;
+          }
+          //push to parent
+          setParentYesSubmission(py);
+          setParentNoSubmission(pn);
+          setParentSubmission(pt);
+        }
+        if (e.data().responsibility[0]) {
+          st++;
+          if (q === "Yes") {
+            sy++;
+          } else {
+            sn++;
+          }
+          //push to student
+          setStudentYesSubmission(sy);
+          setStudentNoSubmission(sn);
+          setStudentSubmission(st);
         }
       });
-      
-      setTotalYesSubmission(y);
-      setTotalNoSubmission(n);
-    })
-    .catch((err) => {
-      console.log(err);
     });
-  db.collection("Parent")
-    .get()
-    .then((doc) => {
-      setParentSubmission(doc.Uf.docChanges.length);
-      let y = 0;
-      let n = 0;
-      doc.forEach((e) => {
-        const q = e.data().thought;
-        if (q == "Yes") {
-          y++
-        } else {
-          n++
-        }
-      });
-      setParentYesSubmission(y);
-      setParentNoSubmission(n);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  db.collection("Student")
-    .get()
-    .then((doc) => {
-      setStudentSubmission(doc.Uf.docChanges.length);
-      let y = 0;
-      let n = 0;
-      doc.forEach((e) => {
-        const q = e.data().thought;
-        if (q == "Yes") {
-          y++
-        } else {
-          n++
-        }
-      });
-      setStudentYesSubmission(y);
-      setStudentNoSubmission(n);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}, [])
- 
+  }, []);
+  const per = (total, val) => (val / total) * 100;
   return (
     <div className="body">
-      {/* { "" : "<p> Thanks For Your Submission </p>"} */}
-      <div className="boxes">
-        <div className="totalSubmission box">
-          Total Submission
-          <p className="num"> {totalSubmission} </p>
-        Total with Yes = {totalYesSubmission} <br />
-          Total with No = {totalNoSubmission}
-        </div>
-        <div className="totalSubmission box">
-          Total Student Submission
-          <p className="num"> {totalStudentSubmission} </p>
-          Student with Yes = {totalYesStudentSubmission} <br/>
-          Student with No = {totalNoStudentSubmission}
-        </div>
-        <div className="totalSubmission box">
-          Total Guardian Submission
-          <p className="num"> {totalParentSubmission} </p>
-          Guardian with Yes = {totalYesParentSubmission} <br/>
-          Guardian with No = {totalNoParentSubmission}
-         
-        </div>
+      <p className="thankyou" id="top">
+        {" "}
+        Thank You For Your Submission!{" "}
+      </p>
+      <div className="yes__no">
+        <Pie
+          title={`Analysis Among Total Submission (Total : ${totalSubmission})`}
+          inFavour={totalYesSubmission}
+          Aganist={totalNoSubmission}
+          yp={per(totalSubmission, totalYesSubmission)}
+          np={per(totalSubmission, totalNoSubmission)}
+        />
+        <Pie
+          title={`Analysis Among Guardian Submission  (Total : ${totalParentSubmission})`}
+          inFavour={totalYesParentSubmission}
+          Aganist={totalNoParentSubmission}
+          yp={per(totalParentSubmission, totalYesParentSubmission)}
+          np={per(totalParentSubmission, totalNoParentSubmission)}
+        />
+        <Pie
+          title={`Among Student Submission  (Total : ${totalStudentSubmission})`}
+          inFavour={totalYesStudentSubmission}
+          Aganist={totalNoStudentSubmission}
+          yp={per(totalStudentSubmission, totalYesStudentSubmission)}
+          np={per(totalStudentSubmission, totalNoStudentSubmission)}
+        />
       </div>
-      <h2> Data Aanalysis </h2>
-      <h4 style={{ color: green }}> This page is in under development phase </h4>
-      <Pie />
+      <Message textArea={textArea} />
+
+      <LineChart />
+
+      <footer>
+        <div className="message">
+          <h3 className="meassge__title">So What Next??</h3>
+          <p>
+            This reading is not taken by government official . So, To drag eyes
+            of government on this analysis please, do share this analysis on
+            different social platform .
+          </p>
+        </div>
+        <div className="for__offical">
+          <p>
+            This analysis is not based on any dummy data and we don't promote
+            any act against the government of Nepal.
+          </p>
+        </div>
+        <a href="#top">
+          <button className="backtotop">Back To Top</button>
+        </a>
+      </footer>
     </div>
   );
 }

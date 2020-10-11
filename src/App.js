@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import Form from './Form';
 import './TotalPieChart'
@@ -13,7 +13,7 @@ function App() {
   return (
     <Router>
     <div className="app">
-      <Switch>
+      <Switch>    
      
       <Route path="/info">
       <TotalPieChart/>
